@@ -5,8 +5,3 @@ Buscando agilidade para responder aos pacientes que buscaram autorização nos p
 
 ![image](https://github.com/user-attachments/assets/b48518fb-d74a-4061-83db-b47d85703891)
 
-![image](https://github.com/user-attachments/assets/59e3ad89-0585-4f7c-a09e-6bcea9062867)
-
-![image](https://github.com/user-attachments/assets/a73291cb-5e91-4baa-80f0-08f99803452f)
-
-![image](https://github.com/user-attachments/assets/1794ec98-9030-4b64-94f8-b03d68e59ad2)
