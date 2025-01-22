@@ -1,0 +1,63 @@
+function cxsselec() {
+
+  //Armazenar sheet em uma variável
+  var tab1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Dados");
+  var tab2 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Página2");
+  var selrow = tab2.getActiveCell();
+  var rowsearch = tab2.getRange("A2");
+  
+  //Confirma se o cursor está na célula "A2"
+  if (selrow.getRowIndex() == 2) {
+
+    //Volta o ponteiro para célula de pesquisa posição "A2"
+    rowsearch.activate();
+
+    //Realizar busca pelo filtro na célula fixa
+    var filtro = tab1.getRange("A2:H").getValues().filter(row => row[3].toString().toLowerCase().includes(rowsearch.getValue().toString().toLowerCase()));
+
+    //Quantidade de linhas + cabeçalho
+    var rows = filtro.length + 4;
+
+    //Limpa sheet e preenche com pesquisa da sheet "Dados"
+    tab2.getRange("A5:H").clear();
+    tab2.getRange("G:G").removeCheckboxes();
+    tab2.getRange("A5:H" + rows).setValues(filtro);
+    tab2.getRange("G5:G" + rows).insertCheckboxes();
+
+    //Cria variável para conter somente dados preenchidos com "true" ou "false"
+    var tdados = tab2.getRange("H5:H" + rows).getValues();
+
+    //Loop para marcar as "CheckBoxs"
+    var perc = 5;
+
+    tdados.forEach(cell => {
+
+      if (cell.toString().toLowerCase() == "true") {
+        tab2.getRange("G" + perc).check();
+      } 
+
+      perc++;
+    });
+  } else if (selrow.getColumn() == 7) {
+
+    //Pega a lista de data de cadastro
+    var data = tab1.getRange("A2:A").getValues();
+
+    //Localiza a posição da linha correspondente a data do CheckBox marcado e ajusta para ser a mesma localização da tabela de dados
+    var row = data.findIndex(valor => valor.toString() === tab2.getRange("A" + selrow.getRowIndex()).getValue().toString()) + 2;
+
+    //Marca, na tabela de dados, o CheckBox do paciente localizado se cirurgia foi realizada
+    if (selrow.getValue().toString().toLowerCase() == "true") {
+      tab1.getRange("H" + row).insertCheckboxes().check();
+    } else {
+      tab1.getRange("H" + row).insertCheckboxes().uncheck();
+    }
+
+    //Volta o ponteiro para célula de pesquisa posição "A2"
+    rowsearch.activate();
+  } else {
+
+    //Volta o ponteiro para célula de pesquisa posição "A2"
+    rowsearch.activate();
+  }
+}
