@@ -3,7 +3,11 @@ function cxsselec() {
   //Armazenar sheet em uma variável
   var tab1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Dados");
   var tab2 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Página2");
+
+  //Pega a posição (x, y) em que a célula está ativa
   var selrow = tab2.getActiveCell();
+
+  //Variável para armazenar caminha da célula de pesquisa
   var rowsearch = tab2.getRange("A2");
   
   //Confirma se o cursor está na célula "A2"
@@ -12,17 +16,12 @@ function cxsselec() {
     //Volta o ponteiro para célula de pesquisa posição "A2"
     rowsearch.activate();
 
-    //Realizar busca pelo filtro na célula fixa
-    var filtro = tab1.getRange("A2:H").getValues().filter(row => row[3].toString().toLowerCase().includes(rowsearch.getValue().toString().toLowerCase()));
-
     //Quantidade de linhas + cabeçalho
-    var rows = filtro.length + 4;
+    var rows = tab2.getRange("A5:A").getValues().filter(row => row != "" && row != null).length + 4;
 
-    //Limpa sheet e preenche com pesquisa da sheet "Dados"
-    tab2.getRange("A5:H").clear();
-    tab2.getRange("G:G").removeCheckboxes();
-    tab2.getRange("A5:H" + rows).setValues(filtro);
-    tab2.getRange("G5:G" + rows).insertCheckboxes();
+    //Limpa última coluna e preenche com CheckBoxe
+    tab2.getRange("I:I").removeCheckboxes();
+    tab2.getRange("I5:I" + rows).insertCheckboxes();
 
     //Cria variável para conter somente dados preenchidos com "true" ou "false"
     var tdados = tab2.getRange("H5:H" + rows).getValues();
@@ -33,12 +32,12 @@ function cxsselec() {
     tdados.forEach(cell => {
 
       if (cell.toString().toLowerCase() == "true") {
-        tab2.getRange("G" + perc).check();
+        tab2.getRange("I" + perc).check();
       } 
 
       perc++;
     });
-  } else if (selrow.getColumn() == 7) {
+  } else if (selrow.getColumn() == 9) {
 
     //Pega a lista de data de cadastro
     var data = tab1.getRange("A2:A").getValues();
