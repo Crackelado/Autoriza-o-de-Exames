@@ -5,7 +5,7 @@ Buscando agilidade para responder aos pacientes que buscaram autorização nos p
 
 ![image](https://github.com/user-attachments/assets/1d75a017-556b-4a40-af0c-720e71b09566)
 
-![image](https://github.com/user-attachments/assets/398a0642-04b9-42d0-9502-6eca4131aa7f)
+![image](https://github.com/user-attachments/assets/f256a501-9de2-4d6e-90c7-c53efb0ac483)
 
 ![TelaPesquisa](https://github.com/user-attachments/assets/db3266de-3dea-4442-8525-fd1d6aaa2f21)
 
