@@ -9,6 +9,6 @@ Buscando agilidade para responder aos pacientes que buscaram autorização nos p
 
 ![TelaPesquisa](https://github.com/user-attachments/assets/db3266de-3dea-4442-8525-fd1d6aaa2f21)
 
-![Script](https://github.com/user-attachments/assets/31878351-6f30-43b4-92a0-48fbdf099ddc)
+![image](https://github.com/user-attachments/assets/bf1d9db3-d478-49fb-9999-41d902cbf401)
 
 ![BancoDados](https://github.com/user-attachments/assets/f36867a3-9a7c-4fd4-beaf-b08916cc894e)
