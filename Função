@@ -1,32 +1,51 @@
 function cxsselec() {
 
-  //Armazenar sheet em uma variável
+  // Armazenar sheet em uma variável
   var tab1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Dados");
   var tab2 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Página2");
 
-  //Pega a posição (x, y) em que a célula está ativa
+  // Pega a posição (x, y) em que a célula está ativa
   var selrow = tab2.getActiveCell();
 
-  //Variável para armazenar caminha da célula de pesquisa
+  // Variável para armazenar caminha da célula de pesquisa por parte do nome
   var rowsearch = tab2.getRange("A2");
-  
-  //Confirma se o cursor está na célula "A2"
+
+  // Variável para armazenar caminha da célula de pesquisa por CPF (começando pelas iniciais)
+  var rowsearchCPF = tab2.getRange("B2");
+
+  // Confirma se o cursor está na linha 2
   if (selrow.getRowIndex() == 2) {
 
-    //Volta o ponteiro para célula de pesquisa posição "A2"
-    rowsearch.activate();
+    // Confirma se o cursor está na coluna 1
+    if (selrow.getColumn() == 1) {
 
-    //Quantidade de linhas + cabeçalho
+      // Volta o ponteiro para célula de pesquisa posição "A2"
+      rowsearch.activate();
+
+      // Limpa célula de pesquisa "B2" para futuras consultas por CPF
+      rowsearchCPF.clear();
+
+    // Se não, confirma se o cursor está na coluna 2
+    } else if (selrow.getColumn() == 2) {
+
+      // Volta o ponteiro para célula de pesquisa posição "B2"
+      rowsearchCPF.activate();
+
+      // Limpa a célula de pesquisa "A2" para não interferir na busca por CPF
+      rowsearch.clear();
+    }
+
+    // Quantidade de linhas + cabeçalho
     var rows = tab2.getRange("A5:A").getValues().filter(row => row != "" && row != null).length + 4;
 
-    //Limpa última coluna e preenche com CheckBoxe
+    // Limpa última coluna e preenche com CheckBox
     tab2.getRange("I:I").removeCheckboxes();
     tab2.getRange("I5:I" + rows).insertCheckboxes();
 
-    //Cria variável para conter somente dados preenchidos com "true" ou "false"
+    // Cria variável para conter somente dados preenchidos com "true" ou "false"
     var tdados = tab2.getRange("H5:H" + rows).getValues();
 
-    //Loop para marcar as "CheckBoxs"
+    // Loop para marcar as "CheckBoxs"
     var perc = 5;
 
     tdados.forEach(cell => {
@@ -39,24 +58,24 @@ function cxsselec() {
     });
   } else if (selrow.getColumn() == 9) {
 
-    //Pega a lista de data de cadastro
+    // Pega a lista de data de cadastro
     var data = tab1.getRange("A2:A").getValues();
 
-    //Localiza a posição da linha correspondente a data do CheckBox marcado e ajusta para ser a mesma localização da tabela de dados
+    // Localiza a posição da linha correspondente a data do CheckBox marcado e ajusta para ser a mesma localização da tabela de dados
     var row = data.findIndex(valor => valor.toString() === tab2.getRange("A" + selrow.getRowIndex()).getValue().toString()) + 2;
 
-    //Marca, na tabela de dados, o CheckBox do paciente localizado se cirurgia foi realizada
+    // Marca, na tabela de dados, o CheckBox do paciente localizado se cirurgia foi realizada
     if (selrow.getValue().toString().toLowerCase() == "true") {
       tab1.getRange("H" + row).insertCheckboxes().check();
     } else {
       tab1.getRange("H" + row).insertCheckboxes().uncheck();
     }
 
-    //Volta o ponteiro para célula de pesquisa posição "A2"
+    // Volta o ponteiro para célula de pesquisa posição "A2"
     rowsearch.activate();
   } else {
 
-    //Volta o ponteiro para célula de pesquisa posição "A2"
+    // Volta o ponteiro para célula de pesquisa posição "A2"
     rowsearch.activate();
   }
 }
